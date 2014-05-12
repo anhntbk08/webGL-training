@@ -1,10 +1,6 @@
-'use strict';
 
-/* Directives */
-
-
-angular.module('WebGl.directives', [])
-        .directive('lessonZeroDirective', [function() {
+directives = directives || angular.module('WebGl.directives', []);
+directives.directive('lessonZeroDirective', [function() {
                 return {
                     link: function(scope, elm, attrs) {
                         var gl;
@@ -122,6 +118,11 @@ angular.module('WebGl.directives', [])
                             
                             triangleVertexColorBuffer = gl.createBuffer();
                             gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer);
+                            
+                            /*
+                             * each value represent for red, green, blue and alpha
+                             * the vector color will draw the color from equivalent vertices
+                             */
                             var colors = [
                                 1.0, 0.0, 0.0, 1.0,
                                 0.0, 1.0, 0.0, 1.0,
@@ -137,21 +138,22 @@ angular.module('WebGl.directives', [])
                                 1.0, 1.0, 1.0,
                                 -1.0, 2.0, -1.0,
                                 1.0, -1.0, 0.0,
-                                -1.0, -1.0, 0.0
+                                -1.0, -1.0, 0.0,
+                                -1.0, 8.0, 0.0
                             ];
                             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
                             squareVertexPositionBuffer.itemSize = 3;
-                            squareVertexPositionBuffer.numItems = 4;
+                            squareVertexPositionBuffer.numItems = 5;
                             
                             squareVertexColorBuffer = gl.createBuffer();
                             gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer);
                             colors = []
-                            for (var i=0; i < 4; i++) {
+                            for (var i=0; i < 6; i++) {
                               colors = colors.concat([0.5, 0.5, 1.0, 1.0]);
                             }
                             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
                             squareVertexColorBuffer.itemSize = 4;
-                            squareVertexColorBuffer.numItems = 4;
+                            squareVertexColorBuffer.numItems = 6;
                         }
 
 
