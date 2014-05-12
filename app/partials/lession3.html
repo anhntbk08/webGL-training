@@ -1,0 +1,36 @@
+<div class="lesson-three-directive: ;">
+    
+    <script id="shader-fs" type="x-shader/x-fragment">
+        precision mediump float;
+        varying vec4 vColor;
+        
+        void main(void) {
+            /*
+             * This version for fixed colour
+             */
+//            gl_FragColor = vec4(1, 0, 0, 1.0);
+//            gl_FragColor = vec4(rInt / 255.0f, gIntValue / 255.0f, bIntValue / 255.0f, 1.0);
+            
+            /*
+             * Use dynamic color depending on input
+             */
+            gl_FragColor = vColor;
+        }
+    </script>
+
+    <script id="shader-vs" type="x-shader/x-vertex">
+        attribute vec3 aVertexPosition;
+        attribute vec4 aVertexColor; // input colour
+        
+        uniform mat4 uMVMatrix;
+        uniform mat4 uPMatrix;
+        
+        varying vec4 vColor; // output colour
+        void main(void) {
+            gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+            vColor = aVertexColor;
+        }
+    </script>
+
+    <canvas id="webgl-canvas"></canvas>
+</div>
